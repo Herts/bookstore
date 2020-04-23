@@ -1,0 +1,35 @@
+<div id="main">
+    <div class="header">
+        {{if .login}}
+            <h1>Login</h1>
+            <h2>Please login here.</h2>
+        {{else}}
+            <h1>Register</h1>
+            <h2>Please register here.</h2>
+        {{end}}
+    </div>
+
+    <div class="content">
+        <form class="pure-form pure-form-stacked" method="post">
+            <fieldset>
+                <label for="username">Email</label>
+                <input id="username" type="email" placeholder="email" name="username">
+                <span class="pure-form-message">This is a required field.</span>
+
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Password" name="password">
+                <span class="pure-form-message">This is a required field.</span>
+
+                {{if .login}}
+                    <label for="remember" class="pure-checkbox">
+                        <input id="remember" type="checkbox"> Remember me
+                    </label>
+                    <button type="submit" class="pure-button pure-button-primary">Sign in</button>
+                    {{else}}
+                    <button type="submit" class="pure-button pure-button-primary">Register</button>
+                {{end}}
+            </fieldset>
+        </form>
+        {{.error}}
+    </div>
+</div>

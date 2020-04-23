@@ -1,0 +1,39 @@
+<div id="main">
+    <div class="header">
+        <h1>User Data</h1>
+        <h2>Check data consumed by users</h2>
+    </div>
+
+    <div class="content">
+        <table class="pure-table pure-table-striped">
+            <thead>
+            <tr>
+                <th>
+                    Order #
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Order Detail
+                </th>
+                <th>
+                    Order Status
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {{range $d := .orders}}
+                <tr>
+                    <td>{{.OrderId}}</td>
+                    <td>{{.OrderDate}}</td>
+                    <td>{{.OrderItems}}</td>
+                    <td>{{.OrderStatus}}</td>
+                </tr>
+            {{end}}
+            </tbody>
+        </table>
+
+    </div>
+</div>

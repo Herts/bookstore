@@ -1,0 +1,45 @@
+<div id="main">
+    <div class="header">
+        <h1>Cart</h1>
+        <h2>Manage your cart here.</h2>
+    </div>
+
+    <div class="content">
+        <div class="content">
+            <table class="pure-table">
+                <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                        Book Name
+                    </th>
+                    <th>
+                        Book Description
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {{range $d := .books}}
+                    <tr>
+                        <td><img class="pure-img" src="{{.IconPath}}" height="42" width="42"></td>
+                        <td><a href="book?skuId={{.SkuId}}">{{.Name}}</a></td>
+                        <td>{{.Description}}</td>
+                        <td>{{.Price}}</td>
+                        <td><input type="number" value="{{.Amount}}"></td>
+                        <td>Delete</td>
+                    </tr>
+                {{end}}
+                </tbody>
+            </table>
+        </div>
+    </div>

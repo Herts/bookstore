@@ -1,0 +1,58 @@
+<div id="main">
+    <div class="header">
+        <h1>{{if .edit}}Edit{{else}}Add{{end}} Book
+        </h1>
+    </div>
+
+    <div class="content">
+        <div class="content">
+            <form id="bookEditForm" class="pure-form pure-form-stacked">
+                <fieldset class="pure-group">
+                    <label for="bookname">Book Name</label>
+                    <input class="pure-input-1-2" id="bookname" name="name" required value="{{.book.Name}}">
+
+                    <label for="description">Description</label>
+                    <textarea class="pure-input-1" id="description" name="description"
+                              oninput="auto_grow(this)">{{.book.Description}}</textarea>
+                    <label for="price">Price</label>
+                    <input id="price" name="price" type="number" step="0.01" required value="{{.book.Price}}">
+                    <label for="amount">Amount</label>
+                    <input id="amount" name="amount" type="number" min="0" required value="{{.book.Price}}">
+
+                </fieldset>
+                <button id="bookEditFormSubmit" type="button"
+                        class="pure-button pure-button-primary">{{if .edit}}Edit{{else}}Add{{end}} Book
+                </button>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function auto_grow(element) {
+        element.style.height = "5px";
+        element.style.height = (element.scrollHeight) + "px";
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        // click on button submit
+        $("#bookEditFormSubmit").on('click', function () {
+            // send ajax
+            $.ajax({
+                url: '/api/book/add', // url where to submit the request
+                type: "POST", // type of action POST || GET
+                dataType: 'json', // data type
+                data: $("#bookEditForm").serializeJSON(), // post data || get data
+                contentType: 'application/json;charset=UTF-8',
+                success: function (result) {
+                    // $('#userAddResult').html(result.message);
+                },
+                error: function (xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            })
+        })
+    });
+</script>
