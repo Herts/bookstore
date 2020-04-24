@@ -13,10 +13,10 @@
 
                     </th>
                     <th>
-                        Book Name
+                        Name
                     </th>
                     <th>
-                        Book Description
+                        Description
                     </th>
                     <th>
                         Price
@@ -30,11 +30,13 @@
 
                 {{range $d := .books}}
                     <tr>
-                        <td><img class="pure-img" src="{{.IconPath}}" height="42" width="42"></td>
+                        <td><img class="pure-img" src="{{.IconPath}}" height="200"></td>
                         <td><a href="book?skuId={{.SkuId}}">{{.Name}}</a></td>
                         <td>{{.Description}}</td>
                         <td>{{.Price}}</td>
-                        <td>{{if $.manage}}Edit{{else}}Add to Cart{{end}}</td>
+                        <td>{{if $.manage}}
+                            <button type="button" class="pure-button">Edit</button>{{else}}
+                            <button type="button" class="pure-button">Add to Cart</button>{{end}}</td>
                     </tr>
                 {{end}}
                 </tbody>

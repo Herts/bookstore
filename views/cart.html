@@ -31,15 +31,24 @@
 
                 {{range $d := .books}}
                     <tr>
-                        <td><img class="pure-img" src="{{.IconPath}}" height="42" width="42"></td>
-                        <td><a href="book?skuId={{.SkuId}}">{{.Name}}</a></td>
-                        <td>{{.Description}}</td>
-                        <td>{{.Price}}</td>
-                        <td><input type="number" value="{{.Amount}}"></td>
+                        <td><img class="pure-img" src="{{.Book.IconPath}}" height="200"></td>
+                        <td><a href="book?skuId={{.Book.SkuId}}">{{.Book.Name}}</a></td>
+                        <td>{{.Book.Description}}</td>
+                        <td>{{.Book.Price}}</td>
+                        <td><input type="number" name="amount" value="{{.Book.Amount}}"></td>
                         <td>Delete</td>
                     </tr>
                 {{end}}
                 </tbody>
             </table>
+            <hr>
+            <div class="pure-g">
+                <div class="pure-u-20-24"></div>
+                <div class="pure-u-1-24">
+                    <button type="button" class="pure-button pure-button-primary">Check out</button>
+                </div>
+            </div>
+
         </div>
     </div>
+</div>

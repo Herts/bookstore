@@ -5,10 +5,20 @@
 
     <div class="content">
         <div class="content">
-            {{if .manage}} {{.book.SkuId}} {{end}}
-            {{.book.Description}}
-            {{.book.Price}}
-            <img class="pure-img" src="{{.book.PicturePath}}" height="42" width="42">
+            <div class="pure-g">
+                <div class="pure-u-1-2">
+                    <img class="pure-img-responsive" src="{{.book.PicturePath}}" height="200">
+                </div>
+                <div class="pure-u-1-2">
+                    Price: {{.book.Price}}
+                    <br>
+                    Description: {{.book.Description}}
+                    <br>
+                    <button type="button" class="pure-button">Add to Cart</button>
+                </div>
+            </div>
+            {{if .manage}}<a href="/manage/editbook?skuId={{.book.SkuId}}" class="pure-button">Edit it here</a>{{end}}
+
         </div>
     </div>
 </div>

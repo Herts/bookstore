@@ -24,4 +24,6 @@ func InitDb() {
 	db.AutoMigrate(&Order{})
 	db.AutoMigrate(&Book{})
 	db.AutoMigrate(&Address{})
+	db.AutoMigrate(&Cart{})
+	db.AutoMigrate(&BookWithAmount{})
 }

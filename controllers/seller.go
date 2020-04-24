@@ -13,7 +13,12 @@ func (c *SellerController) EditBookPage() {
 	c.Data["Title"] = "Edit book"
 	c.Layout = "layout.html"
 	c.TplName = "editbook.html"
-	c.Data["edit"] = true
+	skuId := c.GetString("skuId")
+	if skuId != "" {
+		c.Data["edit"] = true
+		c.Data["book"] = models.GetBookBySkuId(skuId)
+	}
+
 }
 
 func (c *SellerController) AddBookPage() {
@@ -28,7 +33,7 @@ func (c *SellerController) AllBooksPage() {
 		c.Data["Title"] = "My Books"
 		c.Layout = "layout.html"
 		c.TplName = "books.html"
-
+		c.Data["manage"] = true
 		sellerBooks := models.GetBooksByUser(userId.(string))
 		c.Data["books"] = sellerBooks
 	} else {

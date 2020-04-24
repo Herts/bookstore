@@ -1,6 +1,9 @@
 package controllers
 
-import "github.com/astaxie/beego"
+import (
+	"github.com/Herts/bookstore/models"
+	"github.com/astaxie/beego"
+)
 
 type BuyerController struct {
 	beego.Controller
@@ -19,9 +22,17 @@ func (c *BuyerController) OrderPage() {
 }
 
 func (c *BuyerController) CartPage() {
-	c.Data["Title"] = "Cart"
-	c.Layout = "layout.html"
-	c.TplName = "cart.html"
+	userId := c.GetSession("uid")
+	if userId != nil {
+		c.Data["Title"] = "Cart"
+		c.Layout = "layout.html"
+		c.TplName = "cart.html"
+		cart := models.GetCartByUser(userId.(string))
+		c.Data["books"] = cart.Books
+	} else {
+		c.Redirect("/login", 307)
+	}
+
 }
 
 func (c *BuyerController) AllAddressesPage() {
