@@ -66,7 +66,7 @@ func InitFilter() beego.FilterFunc {
 		}
 		_, ok := ctx.Input.Session("uid").(string)
 		if !ok {
-			ctx.Redirect(402, "/login")
+			ctx.Redirect(401, "/login")
 		}
 	}
 }
