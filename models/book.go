@@ -8,8 +8,8 @@ type Book struct {
 	SkuId       string  `json:"skuId"`
 	Name        string  `json:"name"`
 	Description string  `json:"description"`
-	Price       float64 `json:"price" gorm:"decimal"`
-	Amount      int     `json:"amount"`
+	Price       float64 `json:"price,string" gorm:"decimal"`
+	Amount      int     `json:"amount,string"`
 	PicturePath string  `json:"picturePath"`
 	IconPath    string  `json:"iconPath"`
 }

@@ -1,0 +1,59 @@
+<div id="main">
+    <div class="header">
+        <h1>{{if .edit}}Edit{{else}}Add{{end}} Book
+        </h1>
+    </div>
+
+    <div class="content">
+        <div class="content">
+            <form id="addressEditForm" class="pure-form pure-form-stacked">
+                <fieldset class="pure-group">
+                    <label for="recipientName">Recipient's Name</label>
+                    <input class="pure-input-1-2" id="recipientName" name="recipientName"
+                           required value="{{.address.RecipientName}}">
+
+                    <label for="recipientAddr">Recipient's Address</label>
+                    <input class="pure-input-1-2" id="recipientAddr" name="recipientAddr"
+                           required value="{{.address.RecipientAddr}}">
+
+                    <label for="recipientPhone">Recipient's Phone</label>
+                    <input id="recipientPhone" name="recipientPhone" type="number" min="0" required
+                           value="{{.address.RecipientPhone}}">
+
+                </fieldset>
+                <button id="addressEditFormSubmit" type="button"
+                        class="pure-button pure-button-primary">{{if .edit}}Edit{{else}}Add{{end}} Address
+                </button>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function auto_grow(element) {
+        element.style.height = "5px";
+        element.style.height = (element.scrollHeight) + "px";
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        // click on button submit
+        $("#addressEditFormSubmit").on('click', function () {
+            // send ajax
+            $.ajax({
+                url: '/api/address/add', // url where to submit the request
+                type: "POST", // type of action POST || GET
+                dataType: 'json', // data type
+                data: $("#addressEditForm").serializeJSON(), // post data || get data
+                contentType: 'application/json;charset=UTF-8',
+                success: function (result) {
+                    // $('#userAddResult').html(result.message);
+                },
+                error: function (xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            })
+        })
+    });
+</script>

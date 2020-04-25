@@ -1,0 +1,49 @@
+<div id="main">
+    <div class="header">
+        <h1>Address</h1>
+        <h2>Manage your addresses here.</h2>
+    </div>
+
+    <div class="content">
+        <div class="content">
+
+            <div class="pure-g">
+                <div class="pure-u-20-24"></div>
+                <div class="pure-u-1-24">
+                    <a href="/user/addaddress" class="pure-button pure-button-primary">Add Address</a>
+                </div>
+            </div>
+            <table class="pure-table">
+                <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                    <th>
+                        Phone
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {{range $d := .addresses}}
+                    <tr>
+                        <td>{{.RecipientName}}</td>
+                        <td>{{.RecipientAddr}}</td>
+                        <td>{{.RecipientPhone}}</td>
+                        <td>
+                            <a href="/user/editaddress?addressId={{.AddressId}}" class="pure-button">Edit</a></td>
+                    </tr>
+                {{end}}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

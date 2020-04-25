@@ -26,9 +26,20 @@
 
             {{range $d := .orders}}
                 <tr>
-                    <td>{{.OrderId}}</td>
-                    <td>{{.OrderDate}}</td>
-                    <td>{{.OrderItems}}</td>
+                    <td>{{.ID}}</td>
+                    <td>{{.OrderDate.Format "2006-01-02 15:04:05"}}</td>
+                    <td>
+                        <table class="pure-table">
+                            <tbody>
+                            {{range $book := .OrderItems}}
+                                <tr>
+                                    <td><a href="book?skuId={{.Book.SkuId}}">{{.Book.Name}}</a></td>
+                                    <td>{{.Amount}}</td>
+                                </tr>
+                            {{end}}
+                            </tbody>
+                        </table>
+                    </td>
                     <td>{{.OrderStatus}}</td>
                 </tr>
             {{end}}

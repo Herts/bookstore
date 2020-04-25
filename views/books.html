@@ -6,7 +6,15 @@
 
     <div class="content">
         <div class="content">
-            <table class="pure-table">
+            {{if .manage}}
+                <div class="pure-g">
+                    <div class="pure-u-20-24"></div>
+                    <div class="pure-u-1-24">
+                        <a href="/manage/addbook" class="pure-button pure-button-primary">Add Book</a>
+                    </div>
+                </div>
+            {{end}}
+            <table class="pure-table pure-table-horizontal">
                 <thead>
                 <tr>
                     <th>
@@ -32,15 +40,17 @@
                     <tr>
                         <td><img class="pure-img" src="{{.IconPath}}" height="200"></td>
                         <td><a href="book?skuId={{.SkuId}}">{{.Name}}</a></td>
-                        <td>{{.Description}}</td>
+                        <td>{{ printf "%.50s" .Description}}...</td>
                         <td>{{.Price}}</td>
                         <td>{{if $.manage}}
                                 <a href="/manage/editbook?skuId={{.SkuId}}" class="pure-button">Edit</a>{{else}}
-                                <button type="button" class="pure-button" onclick="addToCart({{.SkuId}})">Add to Cart</button>{{end}}</td>
+                                <button type="button" class="pure-button" onclick="addToCart({{.SkuId}})" id="{{.SkuId}}">Add to Cart
+                                </button>{{end}}</td>
                     </tr>
                 {{end}}
                 </tbody>
             </table>
+
         </div>
     </div>
 </div>
@@ -55,7 +65,7 @@
                 dataType: 'json', // data type
                 contentType: 'application/json;charset=UTF-8',
                 success: function (result) {
-                    // $('#userAddResult').html(result.message);
+                    $('#'+skuId).html(result.message);
                 },
                 error: function (xhr, resp, text) {
                     console.log(xhr, resp, text);

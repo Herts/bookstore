@@ -15,10 +15,11 @@ type Cart struct {
 
 type BookWithAmount struct {
 	gorm.Model
-	Book   Book `gorm:"foreignkey:SkuId;association_foreignkey:SkuId;association_autoupdate:false"`
-	SkuId  string
-	Amount int
-	CartID uint
+	Book    Book `gorm:"foreignkey:SkuId;association_foreignkey:SkuId;association_autoupdate:false"`
+	SkuId   string
+	Amount  int
+	CartID  uint
+	OrderID uint
 }
 
 func GetCartByUser(userId string) *Cart {

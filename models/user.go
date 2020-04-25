@@ -4,12 +4,13 @@ import "github.com/jinzhu/gorm"
 
 type User struct {
 	gorm.Model
-	Username string `json:"username" form:"username"`
-	Password string `json:"password" form:"password"`
-	Uuid     string `json:"userId"`
-	Books    []Book `gorm:"foreignkey:ID"`
-	Orders   []Order
-	Cart     Cart
+	Username  string    `json:"username" form:"username"`
+	Password  string    `json:"password" form:"password"`
+	Uuid      string    `json:"userId"`
+	Books     []Book    `gorm:"foreignkey:UserID"`
+	Orders    []Order   `gorm:"foreignkey:UserID"`
+	Addresses []Address `gorm:"foreignkey:UserID"`
+	Cart      Cart      `gorm:"foreignkey:UserID"`
 }
 
 func GetUserByUserName(username string) *User {

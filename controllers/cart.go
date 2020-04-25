@@ -67,3 +67,13 @@ func (c *CartController) UpdateCart(skuId string, amount int) {
 	c.Data["json"] = response{Message: "Success"}
 	c.ServeJSON()
 }
+
+// @router /placeorder [post]
+func (c *CartController) PlaceOrder() {
+	c.Data["json"] = response{Message: "Success"}
+	err := models.PlaceOrder(c.GetSession("uid").(string))
+	if err != nil {
+		c.Data["json"] = response{Message: err.Error()}
+	}
+	c.ServeJSON()
+}

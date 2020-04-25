@@ -25,6 +25,7 @@ func init() {
 
 	beego.Router("/", &controllers.MainController{})
 	beego.Router("/book", &controllers.MainController{}, "get:ViewBookPage")
+	beego.Router("/contact", &controllers.MainController{}, "get:ContactPage")
 
 	beego.Router("/login", &controllers.LoginController{})
 	beego.Router("/register", &controllers.RegController{})
@@ -40,6 +41,7 @@ func init() {
 	beego.Router("/user/cart", &controllers.BuyerController{}, "get:CartPage")
 	beego.Router("/user/addresses", &controllers.BuyerController{}, "get:AllAddressesPage")
 	beego.Router("/user/editaddress", &controllers.BuyerController{}, "get:EditAddressPage")
+	beego.Router("/user/addaddress", &controllers.BuyerController{}, "get:EditAddressPage")
 
 }
 

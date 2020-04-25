@@ -29,3 +29,9 @@ func (c *MainController) ViewBookPage() {
 		c.Redirect("/", 404)
 	}
 }
+
+func (c *MainController) ContactPage() {
+	c.Layout = "layout.html"
+	c.TplName = "contact.html"
+	c.Data["Title"] = "Contact"
+}

@@ -31,10 +31,18 @@ func (c *BookController) CreateOrUpdate() {
 		return
 	}
 	logs.Debug(newBook)
+
+	uid := models.GetUserByUuid(c.GetSession("uid").(string)).ID
 	b := models.GetOrInitBook(&newBook)
 	if b.SkuId == "" {
 		b.SkuId = uuid.New().String()
 	}
+	if b.UserID != uid && b.UserID != 0 {
+		c.Data["json"] = response{Message: "This book does belong to you."}
+		c.ServeJSON()
+		return
+	}
+	b.UserID = uid
 	models.SaveBook(b)
 	c.Data["json"] = response{Message: fmt.Sprintf("Book %s saved successfully.", b.Name)}
 	c.ServeJSON()
@@ -46,4 +54,3 @@ func (c *BookController) ListBooks() {
 	var newBook models.Book
 	logs.Debug(newBook)
 }
-
