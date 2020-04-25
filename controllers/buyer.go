@@ -26,11 +26,13 @@ func (c *BuyerController) OrderPage() {
 func (c *BuyerController) CartPage() {
 	userId := c.GetSession("uid")
 	if userId != nil {
+		uid := userId.(string)
 		c.Data["Title"] = "Cart"
 		c.Layout = "layout.html"
 		c.TplName = "cart.html"
-		cart := models.GetCartByUser(userId.(string))
+		cart := models.GetCartByUser(uid)
 		c.Data["books"] = cart.Books
+		c.Data["addresses"] = models.GetAllAddressByUser(uid)
 	} else {
 		c.Redirect("/login", 307)
 	}

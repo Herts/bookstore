@@ -68,10 +68,11 @@ func (c *CartController) UpdateCart(skuId string, amount int) {
 	c.ServeJSON()
 }
 
+// @Param addressId query string true "Address Id"
 // @router /placeorder [post]
-func (c *CartController) PlaceOrder() {
+func (c *CartController) PlaceOrder(addressId string) {
 	c.Data["json"] = response{Message: "Success"}
-	err := models.PlaceOrder(c.GetSession("uid").(string))
+	err := models.PlaceOrder(c.GetSession("uid").(string), addressId)
 	if err != nil {
 		c.Data["json"] = response{Message: err.Error()}
 	}

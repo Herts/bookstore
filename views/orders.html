@@ -18,6 +18,9 @@
                     Order Detail
                 </th>
                 <th>
+                    Address
+                </th>
+                <th>
                     Order Status
                 </th>
             </tr>
@@ -40,6 +43,7 @@
                             </tbody>
                         </table>
                     </td>
+                    <td>{{.Address.RecipientName}} {{.Address.RecipientAddr}} {{.Address.RecipientPhone}}</td>
                     <td>{{.OrderStatus}}</td>
                 </tr>
             {{end}}

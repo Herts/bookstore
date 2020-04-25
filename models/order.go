@@ -15,16 +15,18 @@ type Order struct {
 	OrderStatus string
 	OrderPaid   bool
 	UserID      uint
+	Address     Address `gorm:"foreignkey:AddressId;association_foreignkey:AddressId;association_autoupdate:false"`
+	AddressId   string
 }
 
 func GetAllOrdersByUser(uuid string) (orders []*Order) {
 	u := User{}
 	db.Where(&User{Uuid: uuid}).First(&u)
-	db.Preload("OrderItems.Book").Model(&u).Related(&orders)
+	db.Preload("OrderItems.Book").Preload("Address").Model(&u).Related(&orders)
 	return
 }
 
-func PlaceOrder(userId string) error {
+func PlaceOrder(userId string, addressId string) error {
 	c := GetCartByUser(userId)
 	if len(c.Books) == 0 {
 		return errors.New("no books in the cart")
@@ -45,6 +47,7 @@ func PlaceOrder(userId string) error {
 		OrderStatus: "",
 		OrderPaid:   false,
 		UserID:      c.UserID,
+		AddressId:   addressId,
 	}
 	result := db.Save(&order)
 	for _, b := range c.Books {

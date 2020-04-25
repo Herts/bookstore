@@ -8,61 +8,74 @@
         <div class="content">
             {{ $length := len .books }}
             {{ if eq $length 0 }}
-                <a href="/">Get some books!</a>
+            <a href="/">Get some books!</a>
             {{else }}
-                <table class="pure-table stretch">
-                    <thead>
+            <table class="pure-table stretch">
+                <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {{range $d := .books}}
                     <tr>
-                        <th>
-
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Description
-                        </th>
-                        <th>
-                            Price
-                        </th>
-                        <th>
-                            Amount
-                        </th>
-                        <th></th>
+                        <td><img class="pure-img" src="{{.Book.IconPath}}" height="400"></td>
+                        <td><a href="book?skuId={{.Book.SkuId}}">{{.Book.Name}}</a></td>
+                        <td>{{ printf "%.50s" .Book.Description}}...</td>
+                        <td>{{.Book.Price}}</td>
+                        <td><input class="pure-input-1-8" type="number" name="amount" min="0" value="{{.Amount}}"
+                                   id="amount-{{.Book.SkuId}}"></td>
+                        <td>
+                            <button type="button" class="pure-button pure-button-primary"
+                                    id="button-{{.Book.SkuId}}"
+                                    onclick="updateCart({{.Book.SkuId}},getAmount({{.Book.SkuId}}))">Update
+                            </button>
+                            <br>
+                            <br>
+                            <button type="button" class="pure-button" onclick="updateCart({{.Book.SkuId}}, 0)">
+                                Delete
+                            </button>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
+                {{end}}
+                </tbody>
+            </table>
+            <hr>
 
-                    {{range $d := .books}}
-                        <tr>
-                            <td><img class="pure-img" src="{{.Book.IconPath}}" height="400"></td>
-                            <td><a href="book?skuId={{.Book.SkuId}}">{{.Book.Name}}</a></td>
-                            <td>{{ printf "%.50s" .Book.Description}}...</td>
-                            <td>{{.Book.Price}}</td>
-                            <td><input class="pure-input-1-8" type="number" name="amount" min="0" value="{{.Amount}}"
-                                       id="amount-{{.Book.SkuId}}"></td>
-                            <td>
-                                <button type="button" class="pure-button pure-button-primary"
-                                        id="button-{{.Book.SkuId}}"
-                                        onclick="updateCart({{.Book.SkuId}},getAmount({{.Book.SkuId}}))">Update
-                                </button>
-                                <br>
-                                <br>
-                                <button type="button" class="pure-button" onclick="updateCart({{.Book.SkuId}}, 0)">
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    {{end}}
-                    </tbody>
-                </table>
-                <hr>
-            {{ end }}
             <div class="pure-g">
-                <div class="pure-u-20-24" id="orderResult"></div>
+                <div class="pure-u-10-24" id="orderResult"></div>
+                <div class="pure-u-10-24">
+                    {{ $lengthOfAddr := len .addresses }}
+                    {{ if eq $lengthOfAddr 0 }}
+                        <a href="/user/addaddress">Add your first address</a>
+                    {{else }}
+                        <label for="addresses">Select your address:</label><select id="addresses">
+                            {{range $addr := .addresses}}
+                                <option value="{{.AddressId}}">{{.RecipientName}} {{.RecipientAddr}} {{.RecipientPhone}}</option>
+                            {{end}}
+                        </select>
+                    {{end}}
+                </div>
                 <div class="pure-u-1-24">
                     <button id="checkout" type="button" class="pure-button pure-button-primary">Check out</button>
                 </div>
+                {{ end }}
             </div>
         </div>
     </div>
@@ -96,7 +109,7 @@
         $("#checkout").on('click', function () {
             // send ajax
             $.ajax({
-                url: '/api/cart/placeorder', // url where to submit the request
+                url: '/api/cart/placeorder?addressId=' + $("#addresses").val(), // url where to submit the request
                 type: "POST", // type of action POST || GET
                 dataType: 'json', // data type
                 contentType: 'application/json;charset=UTF-8',
