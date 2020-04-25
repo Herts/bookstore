@@ -21,7 +21,7 @@ func init() {
 	beego.BConfig.WebConfig.Session.SessionProvider = "file"
 	beego.BConfig.WebConfig.Session.SessionProviderConfig = "./tmp"
 
-	//beego.InsertFilter("/*", beego.BeforeRouter, InitFilter())
+	beego.InsertFilter("/*", beego.BeforeRouter, InitFilter())
 
 	beego.Router("/", &controllers.MainController{})
 	beego.Router("/book", &controllers.MainController{}, "get:ViewBookPage")
@@ -47,7 +47,14 @@ func InitFilter() beego.FilterFunc {
 	auth := beego.AppConfig.String("Authorization")
 	return func(ctx *context.Context) {
 		target := ctx.Input.URL()
-		if strings.HasPrefix(target, "/login") || strings.HasPrefix(target, "/register") || target == "/" {
+		var prefixes = []string{"/user", "/manage", "/api"}
+		shouldLogin := false
+		for _, p := range prefixes {
+			if strings.HasPrefix(target, p) {
+				shouldLogin = true
+			}
+		}
+		if !shouldLogin {
 			return
 		}
 		if len(auth) != 0 {
