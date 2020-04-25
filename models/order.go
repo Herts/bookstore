@@ -19,6 +19,6 @@ type Order struct {
 func GetAllOrdersByUser(uuid string) (orders []*Order) {
 	u := User{}
 	db.Where(&User{Uuid: uuid}).First(&u)
-	db.Model(&u).Related(&orders)
+	db.Preload("OrderItems.Book").Model(&u).Related(&orders)
 	return
 }

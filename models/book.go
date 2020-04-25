@@ -5,7 +5,6 @@ import "github.com/jinzhu/gorm"
 type Book struct {
 	gorm.Model  `json:"-"`
 	UserID      uint
-	User        User
 	SkuId       string  `json:"skuId"`
 	Name        string  `json:"name"`
 	Description string  `json:"description"`

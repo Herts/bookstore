@@ -6,23 +6,23 @@
 
     <div class="content">
         <div class="content">
-            <table class="pure-table">
+            <table class="pure-table stretch">
                 <thead>
                 <tr>
                     <th>
 
                     </th>
                     <th>
-                        Book Name
+                        Name
                     </th>
                     <th>
-                        Book Description
+                        Description
                     </th>
                     <th>
                         Price
                     </th>
                     <th>
-                        Amount
+                        <label for="amount">Amount</label>
                     </th>
                     <th></th>
                 </tr>
@@ -31,12 +31,21 @@
 
                 {{range $d := .books}}
                     <tr>
-                        <td><img class="pure-img" src="{{.Book.IconPath}}" height="200"></td>
+                        <td><img class="pure-img" src="{{.Book.IconPath}}" height="400"></td>
                         <td><a href="book?skuId={{.Book.SkuId}}">{{.Book.Name}}</a></td>
                         <td>{{.Book.Description}}</td>
                         <td>{{.Book.Price}}</td>
-                        <td><input type="number" name="amount" value="{{.Book.Amount}}"></td>
-                        <td>Delete</td>
+                        <td><input class="pure-input-1-8" type="number" name="amount" min="0" value="{{.Amount}}"
+                                   id="amount-{{.Book.SkuId}}"></td>
+                        <td>
+                            <button type="button" class="pure-button pure-button-primary"
+                                    onclick="updateCart({{.Book.SkuId}},getAmount({{.Book.SkuId}}))">Update
+                            </button>
+                            <br>
+                            <br>
+                            <button type="button" class="pure-button" onclick="updateCart({{.Book.SkuId}}, 0)">Delete
+                            </button>
+                        </td>
                     </tr>
                 {{end}}
                 </tbody>
@@ -52,3 +61,25 @@
         </div>
     </div>
 </div>
+
+<script>
+    function getAmount(skuId) {
+        return $("#amount-" + skuId).val();
+    }
+
+    function updateCart(skuId, amount) {
+        $.ajax({
+            url: '/api/cart/update?skuId=' + skuId + "&amount=" + amount, // url where to submit the request
+            type: "PUT",
+            dataType: 'json', // data type
+            contentType: 'application/json;charset=UTF-8',
+            success: function (result) {
+                // $('#userAddResult').html(result.message);
+            },
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        })
+    }
+</script>
+

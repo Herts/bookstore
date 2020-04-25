@@ -21,3 +21,9 @@ func GetUserByUserName(username string) *User {
 func SaveUser(u *User) {
 	db.Save(u)
 }
+
+func GetUserByUuid(userId string) *User {
+	u := User{}
+	db.Where(&User{Uuid: userId}).First(&u)
+	return &u
+}

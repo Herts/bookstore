@@ -13,6 +13,9 @@ func init() {
 		beego.NSNamespace("/book",
 			beego.NSInclude(&controllers.BookController{}),
 		),
+		beego.NSNamespace("/cart",
+			beego.NSInclude(&controllers.CartController{}),
+		),
 	)
 	beego.AddNamespace(ns)
 	beego.BConfig.WebConfig.Session.SessionProvider = "file"
@@ -25,6 +28,7 @@ func init() {
 
 	beego.Router("/login", &controllers.LoginController{})
 	beego.Router("/register", &controllers.RegController{})
+	beego.Router("/logout", &controllers.LoginController{}, "get:LogOut")
 
 	beego.Router("/manage/editbook", &controllers.SellerController{}, "get:EditBookPage")
 	beego.Router("/manage/addbook", &controllers.SellerController{}, "get:AddBookPage")

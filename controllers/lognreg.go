@@ -83,3 +83,8 @@ func (c *RegController) Get() {
 	c.Layout = "layout.html"
 	c.TplName = "login.html"
 }
+
+func (c *LoginController) LogOut() {
+	c.DelSession("uid")
+	c.Redirect("/", 307)
+}

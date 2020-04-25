@@ -14,7 +14,7 @@
                     <br>
                     Description: {{.book.Description}}
                     <br>
-                    <button type="button" class="pure-button">Add to Cart</button>
+                    <button type="button" class="pure-button" onclick="addToCart({{.book.SkuId}})">Add to Cart</button>
                 </div>
             </div>
             {{if .manage}}<a href="/manage/editbook?skuId={{.book.SkuId}}" class="pure-button">Edit it here</a>{{end}}
@@ -22,3 +22,22 @@
         </div>
     </div>
 </div>
+
+{{if not .manage}}
+    <script>
+        function addToCart(skuId) {
+            $.ajax({
+                url: '/api/cart/add?skuId=' + skuId + "&amount=1", // url where to submit the request
+                type: "POST", // type of action POST || GET
+                dataType: 'json', // data type
+                contentType: 'application/json;charset=UTF-8',
+                success: function (result) {
+                    // $('#userAddResult').html(result.message);
+                },
+                error: function (xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            })
+        }
+    </script>
+{{end}}
