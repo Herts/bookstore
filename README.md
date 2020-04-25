@@ -5,3 +5,5 @@
 3. Set database connection configuration details in conf/config.yaml
 4. Install all dependencies via ``go get ./...``
 5. Open a terminal and run ``bee run``
+
+You can see [a demo here](http://bookstore.newherts.com:10080/) deployed on Aliyun.
