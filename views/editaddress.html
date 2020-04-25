@@ -48,7 +48,7 @@
                 data: $("#addressEditForm").serializeJSON(), // post data || get data
                 contentType: 'application/json;charset=UTF-8',
                 success: function (result) {
-                    // $('#userAddResult').html(result.message);
+                    $('#addressEditFormSubmit').html(result.message);
                 },
                 error: function (xhr, resp, text) {
                     console.log(xhr, resp, text);

@@ -16,6 +16,9 @@ func init() {
 		beego.NSNamespace("/cart",
 			beego.NSInclude(&controllers.CartController{}),
 		),
+		beego.NSNamespace("address",
+			beego.NSInclude(&controllers.AddressController{}),
+		),
 	)
 	beego.AddNamespace(ns)
 	beego.BConfig.WebConfig.Session.SessionProvider = "file"
